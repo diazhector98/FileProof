@@ -2,4 +2,4 @@
 const fm = require('./FileManagement/FileManagement');
 
 
-fm.moveFilesContainingToDirectory('Captura', 'Capturas');
+fm.getStatsOfFile('index.js');

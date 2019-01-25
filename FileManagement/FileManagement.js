@@ -1,4 +1,5 @@
 const fs = require('fs');
+const fsPromises = require('fs').promises;
 const path = require('path');
 
 const getFilesWithExtension = (extension) => {
@@ -71,7 +72,14 @@ const createFolder = (folderName) => {
     })
 }
 
+const getStatsOfFile = (path) => {
+    fsPromises.stat(path).then((fileStat) => {
+        console.log(fileStat);
+    });
+}
+
 module.exports.moveFileToDirectory = moveFileToDirectory;
 module.exports.createFolder = createFolder;
 module.exports.moveFilesWithExtensionToDirectory = moveFilesWithExtensionToDirectory;
 module.exports.moveFilesContainingToDirectory = moveFilesContainingToDirectory;
+module.exports.getStatsOfFile = getStatsOfFile;
