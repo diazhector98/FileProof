@@ -1,0 +1,11 @@
+{
+  "name": "fileproof",
+  "version": "1.0.0",
+  "description": "Manage your file's clutter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hector Diaz",
+  "license": "ISC"
+}
