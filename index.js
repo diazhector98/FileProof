@@ -2,4 +2,4 @@
 const fm = require('./FileManagement/FileManagement');
 
 
-fm.moveFilesWithExtensionToDirectory('.jpg', 'images');
+fm.moveFilesContainingToDirectory('Captura', 'Capturas');

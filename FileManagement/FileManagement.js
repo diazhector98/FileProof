@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 
 const getFilesWithExtension = (extension) => {
-    console.log('hello');
     let files = fs.readdirSync('.', {
         withFileTypes: false
     });
@@ -12,6 +11,16 @@ const getFilesWithExtension = (extension) => {
     })
     return files;
 };
+
+const getFilesContaining = (string) => {
+    let files = fs.readdirSync('.', {
+        withFileTypes: false
+    });
+    files = files.filter(file => {
+        return file.includes(string);
+    });
+    return files;
+}
 
 const moveFilesWithExtensionToDirectory = (extension, directory) => {
     if(fs.existsSync(directory)){
@@ -26,6 +35,21 @@ const moveFilesWithExtensionToDirectory = (extension, directory) => {
         });
     }
 };
+
+const moveFilesContainingToDirectory = (string, directory) => {
+    if(fs.existsSync(directory)){
+        console.log('folder already exists');
+    } else {
+        const files = getFilesContaining(string);
+        fs.mkdir(directory, null, (err) => {
+            if(err){
+                throw Error;
+            }
+            console.log(files);
+            moveFilesToDirectory(files, directory);
+        });
+    }
+}
 
 const moveFilesToDirectory = (files, directory) => {
     files.forEach(file => {
@@ -50,3 +74,4 @@ const createFolder = (folderName) => {
 module.exports.moveFileToDirectory = moveFileToDirectory;
 module.exports.createFolder = createFolder;
 module.exports.moveFilesWithExtensionToDirectory = moveFilesWithExtensionToDirectory;
+module.exports.moveFilesContainingToDirectory = moveFilesContainingToDirectory;
