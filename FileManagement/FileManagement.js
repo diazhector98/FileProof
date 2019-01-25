@@ -31,7 +31,7 @@ const moveFilesWithExtensionToDirectory = (extension, directory) => {
             if(err){
                 throw Error;
             }
-            const files = getFilesWithExtension('.jpg');
+            const files = getFilesWithExtension(`.${extension}`);
             moveFilesToDirectory(files, directory);
         });
     }
