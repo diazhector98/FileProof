@@ -87,8 +87,18 @@ const handleMovingAttributes = (answer) => {
                 getDirectory((directory) => {
                     dir = directory;
                     console.log(`Gonna move files with extension ${ext} to ${dir}`);
+                    fm.moveFilesWithExtensionToDirectory(ext,dir);
                 });
             }
+        });
+    } else {
+        getContaining((answer) => {
+            cont = answer;
+            getDirectory((directory) => {
+                dir = directory;
+                console.log(`Gonna move files containing ${cont} to ${dir}`);
+                fm.moveFilesContainingToDirectory(cont, directory);
+            });
         });
     }
 

@@ -38,15 +38,15 @@ const moveFilesWithExtensionToDirectory = (extension, directory) => {
 };
 
 const moveFilesContainingToDirectory = (string, directory) => {
+    const files = getFilesContaining(string);
     if(fs.existsSync(directory)){
         console.log('folder already exists');
+        moveFilesToDirectory(files, directory);
     } else {
-        const files = getFilesContaining(string);
         fs.mkdir(directory, null, (err) => {
             if(err){
                 throw Error;
             }
-            console.log(files);
             moveFilesToDirectory(files, directory);
         });
     }
