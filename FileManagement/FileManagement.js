@@ -2,6 +2,15 @@ const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
 
+
+const deleteFile = (file) => {
+    fs.unlink(file, (err) => {
+        if(err){
+            throw err;
+        }
+    });
+}
+
 const getFilesWithExtension = (extension) => {
     let files = fs.readdirSync('.', {
         withFileTypes: false
@@ -23,6 +32,17 @@ const getFilesContaining = (string) => {
     return files;
 }
 
+const getFilesWithExtensionAndContaining = (extension, containing) => {
+    let files = fs.readdirSync('.', {
+        withFileTypes: false
+    });
+    files = files.filter(file => {
+        return file.includes(containing) && path.extname(file) === `.${extension}`;
+    });
+    console.log(files.length);
+    return files;
+}
+
 const moveFilesWithExtensionToDirectory = (extension, directory) => {
     if(fs.existsSync(directory)){
         console.log('folder already exists');
@@ -40,7 +60,20 @@ const moveFilesWithExtensionToDirectory = (extension, directory) => {
 const moveFilesContainingToDirectory = (string, directory) => {
     const files = getFilesContaining(string);
     if(fs.existsSync(directory)){
-        console.log('folder already exists');
+        moveFilesToDirectory(files, directory);
+    } else {
+        fs.mkdir(directory, null, (err) => {
+            if(err){
+                throw Error;
+            }
+            moveFilesToDirectory(files, directory);
+        });
+    }
+}
+
+const moveFilesWithExtensionAndContainingToDirectory = (extension, containing, directory) => {
+    const files = getFilesWithExtensionAndContaining(extension, containing);
+    if(fs.existsSync(directory)){
         moveFilesToDirectory(files, directory);
     } else {
         fs.mkdir(directory, null, (err) => {
@@ -78,8 +111,10 @@ const getStatsOfFile = (path) => {
     });
 }
 
+module.exports.deleteFile = deleteFile;
 module.exports.moveFileToDirectory = moveFileToDirectory;
 module.exports.createFolder = createFolder;
 module.exports.moveFilesWithExtensionToDirectory = moveFilesWithExtensionToDirectory;
 module.exports.moveFilesContainingToDirectory = moveFilesContainingToDirectory;
+module.exports.moveFilesWithExtensionAndContainingToDirectory = moveFilesWithExtensionAndContainingToDirectory;
 module.exports.getStatsOfFile = getStatsOfFile;
