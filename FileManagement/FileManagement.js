@@ -1,14 +1,46 @@
 const fs = require('fs');
 const fsPromises = require('fs').promises;
+const inquirer = require('inquirer');
 const path = require('path');
 
 
-const deleteFile = (file) => {
-    fs.unlink(file, (err) => {
-        if(err){
-            throw err;
-        }
-    });
+const getExtension = (callback) => {
+    inquirer.prompt(
+        [
+            {
+                name: 'extension',
+                message: 'Extension (e.g jpg, pdf, docx): '
+            }
+        ]
+    ).then(answer => {
+        callback(answer.extension);
+    })
+}
+
+const getContaining = (callback) => {
+    inquirer.prompt(
+        [
+            {
+                name: 'containing',
+                message: 'Containing (e.g \'HW\', all files containg \'HW\'): '
+            }
+        ]
+    ).then(answer => {
+        callback(answer.containing);
+    })
+}
+
+const getDirectory = (callback) => {
+    inquirer.prompt(
+        [
+            {
+                name: 'directory',
+                message: 'Directory/Folder destiny: '
+            }
+        ]
+    ).then(answer => {
+        callback(answer.directory);
+    })
 }
 
 const getFilesWithExtension = (extension) => {
@@ -17,7 +49,7 @@ const getFilesWithExtension = (extension) => {
     });
 
     files = files.filter(file => {
-        return path.extname(file) === extension;
+        return path.extname(file) === `.${extension}`;
     })
     return files;
 };
@@ -96,6 +128,35 @@ const moveFileToDirectory = (filename, directory) => {
     fs.renameSync(filename, `${directory}/${filename}`);
 };
 
+const deleteFilesWithExtensionAndContaining = (extension, containing) => {
+    const files = getFilesWithExtensionAndContaining(extension, containing);
+    deleteFiles(files);
+};
+
+const deletFilesWithExtension = (extension) => {
+    const files = getFilesWithExtension(extension);
+    deleteFiles(files);
+};
+
+const deleteFilesContaining = (containing) => {
+    const files = getFilesContaining(containing);
+    deleteFiles(files);
+};
+
+const deleteFiles = (files) => {
+    files.forEach(file => {
+        deleteFile(file);
+    })
+};
+
+const deleteFile = (file) => {
+    fs.unlink(file, (err) => {
+        if(err){
+            throw err;
+        }
+    });
+};
+
 const createFolder = (folderName) => {
     console.log(`Creating folder ${folderName}`);
     fs.mkdir(folderName, null, (err) => {
@@ -111,10 +172,20 @@ const getStatsOfFile = (path) => {
     });
 }
 
-module.exports.deleteFile = deleteFile;
-module.exports.moveFileToDirectory = moveFileToDirectory;
-module.exports.createFolder = createFolder;
-module.exports.moveFilesWithExtensionToDirectory = moveFilesWithExtensionToDirectory;
-module.exports.moveFilesContainingToDirectory = moveFilesContainingToDirectory;
-module.exports.moveFilesWithExtensionAndContainingToDirectory = moveFilesWithExtensionAndContainingToDirectory;
-module.exports.getStatsOfFile = getStatsOfFile;
+module.exports = {
+    deleteFile,
+    moveFileToDirectory,
+    createFolder,
+    moveFilesWithExtensionToDirectory,
+    moveFilesContainingToDirectory,
+    moveFilesWithExtensionAndContainingToDirectory,
+    getStatsOfFile,
+    getContaining,
+    getExtension,
+    getDirectory,
+    deleteFile,
+    deleteFiles,
+    deletFilesWithExtension,
+    deleteFilesContaining,
+    deleteFilesWithExtensionAndContaining
+}

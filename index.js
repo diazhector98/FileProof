@@ -1,6 +1,7 @@
 //
 const inquirer = require('inquirer');
 const moveFiles = require('./MoveFiles');
+const deleteFiles = require('./DeleteFiles');
 const fm = require('./FileManagement/FileManagement');
 
 
@@ -18,11 +19,11 @@ const menuListObject =
             value: 'deleteFiles'
         },
         {
-            name: 'Create fileproof rule file',
+            name: 'Create fileproof file',
             value: 'initFproof'
         },
         {
-            name: 'Use fileproof rule file',
+            name: 'Use fileproof file',
             value: 'runFproof'
         }
     ]
@@ -31,6 +32,8 @@ const menuListObject =
 const handleMenuOption = (option) => {
     if(option == 'moveToDir'){
         moveFiles.start();
+    } else if(option == 'deleteFiles'){
+        deleteFiles.start();
     }
 }
 
