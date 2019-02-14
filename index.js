@@ -3,6 +3,7 @@ const inquirer = require('inquirer');
 const moveFiles = require('./MoveFiles');
 const deleteFiles = require('./DeleteFiles');
 const fm = require('./FileManagement/FileManagement');
+const fp = require('./FileProof/FileProof');
 
 
 const menuListObject =
