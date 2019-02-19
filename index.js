@@ -6,6 +6,8 @@ const fm = require('./FileManagement/FileManagement');
 const fp = require('./FileProof/FileProof');
 
 
+fp.executeFProof();
+
 const menuListObject =
 {
     type: 'list',
@@ -38,13 +40,12 @@ const handleMenuOption = (option) => {
     }
 }
 
-
-
+/*
 inquirer.prompt([menuListObject])
 .then(answers => {
     handleMenuOption(answers.menuOption);
 });
-
+*/
 
 
 

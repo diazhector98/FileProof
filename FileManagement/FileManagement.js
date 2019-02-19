@@ -47,7 +47,6 @@ const getFilesWithExtension = (extension) => {
     let files = fs.readdirSync('.', {
         withFileTypes: false
     });
-
     files = files.filter(file => {
         return path.extname(file) === `.${extension}`;
     })
@@ -71,19 +70,19 @@ const getFilesWithExtensionAndContaining = (extension, containing) => {
     files = files.filter(file => {
         return file.includes(containing) && path.extname(file) === `.${extension}`;
     });
-    console.log(files.length);
     return files;
 }
 
 const moveFilesWithExtensionToDirectory = (extension, directory) => {
     if(fs.existsSync(directory)){
-        console.log('folder already exists');
+        const files = getFilesWithExtension(`${extension}`);
+        moveFilesToDirectory(files, directory);
     } else {
         fs.mkdir(directory, null, (err) => {
             if(err){
                 throw Error;
             }
-            const files = getFilesWithExtension(`.${extension}`);
+            const files = getFilesWithExtension(`${extension}`);
             moveFilesToDirectory(files, directory);
         });
     }
@@ -124,7 +123,6 @@ const moveFilesToDirectory = (files, directory) => {
 }
 
 const moveFileToDirectory = (filename, directory) => {
-    console.log(`Moving file ${filename} to directory ${directory}`);
     fs.renameSync(filename, `${directory}/${filename}`);
 };
 
@@ -158,7 +156,6 @@ const deleteFile = (file) => {
 };
 
 const createFolder = (folderName) => {
-    console.log(`Creating folder ${folderName}`);
     fs.mkdir(folderName, null, (err) => {
         if(err){
             throw Error;
@@ -173,6 +170,8 @@ const getStatsOfFile = (path) => {
 }
 
 module.exports = {
+    getFilesWithExtension,
+    getFilesContaining,
     deleteFile,
     moveFileToDirectory,
     createFolder,
