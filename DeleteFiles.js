@@ -15,7 +15,7 @@ const handleDeletingAttributes = (answer) => {
                     fm.deleteFilesWithExtensionAndContaining(ext, cont);
                 });
             } else {
-                fm.deletFilesWithExtension(ext);
+                fm.deleteFilesWithExtension(ext);
             }
         });
     } else {

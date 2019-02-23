@@ -1,1 +1,19 @@
-{"move":{"extensions":["jpeg", "pdf"]},"directory":"Jpgs and Pdfs"}
+{
+    "delete":[
+        {
+        "extensions":["jpeg", "pdf"],
+        "containing": "mat"
+        }
+    ],
+    "move": [
+        {
+            "extensions":["png", "docx"],
+            "containing": "fis",
+            "directory": "Fis HW"
+        }, 
+        {
+            "extensions":["jpg"],
+            "directory": "Pictures"
+        }
+    ]
+}

@@ -131,7 +131,7 @@ const deleteFilesWithExtensionAndContaining = (extension, containing) => {
     deleteFiles(files);
 };
 
-const deletFilesWithExtension = (extension) => {
+const deleteFilesWithExtension = (extension) => {
     const files = getFilesWithExtension(extension);
     deleteFiles(files);
 };
@@ -184,7 +184,7 @@ module.exports = {
     getDirectory,
     deleteFile,
     deleteFiles,
-    deletFilesWithExtension,
+    deleteFilesWithExtension,
     deleteFilesContaining,
     deleteFilesWithExtensionAndContaining
 }
