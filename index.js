@@ -2,11 +2,10 @@
 const inquirer = require('inquirer');
 const moveFiles = require('./MoveFiles');
 const deleteFiles = require('./DeleteFiles');
+const useFileProof = require('./FileProof/UseFileProof');
 const fm = require('./FileManagement/FileManagement');
 const fp = require('./FileProof/FileProof');
 
-
-fp.executeFProof();
 
 const menuListObject =
 {
@@ -37,15 +36,15 @@ const handleMenuOption = (option) => {
         moveFiles.start();
     } else if(option == 'deleteFiles'){
         deleteFiles.start();
+    } else if(option == 'runFproof'){
+        useFileProof.start();
     }
 }
 
-/*
 inquirer.prompt([menuListObject])
 .then(answers => {
     handleMenuOption(answers.menuOption);
 });
-*/
 
 
 

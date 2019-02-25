@@ -14,7 +14,6 @@ const writeJSONtoFile = (object, filepath) => {
 const getJSONfromFile = (filepath) => {
     try{
         const jsonString = fs.readFileSync(filepath);
-        console.log(jsonString);
         return JSON.parse(jsonString);
     } catch(e) {
         return {};
@@ -50,12 +49,9 @@ const deleteFilesWithJSON = (object) => {
     }
 }
 
-const executeFProof = () => {
-    const files = getFproofFilepaths();
-    console.log(files);
+const executeFProof = (files) => {
     files.forEach(file => {
         const obj = getJSONfromFile(file);
-        console.log(obj);
         if(obj.move){
             const moveObjects = obj.move;
             moveObjects.forEach(movObj => {
@@ -74,5 +70,6 @@ const executeFProof = () => {
 module.exports = {
     writeJSONtoFile,
     getJSONfromFile,
-    executeFProof
+    executeFProof,
+    getFproofFilepaths
 };

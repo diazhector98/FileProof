@@ -1,0 +1,8 @@
+{
+    "move": [
+        {
+            "extensions":["xlsx"],
+            "directory": "Spreadsheets"
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "move": [
+        {
+            "extensions":["pptx"],
+            "directory": "Powerpoints"
+        }
+    ]
+}
